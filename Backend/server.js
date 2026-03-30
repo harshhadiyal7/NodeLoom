@@ -7,6 +7,8 @@ import {YSocketIO} from "y-socket.io/dist/server"
 const app = exprees();
 const httpServer = createServer(app);
 
+app.use(exprees.static("public"));
+
 const io = new Server(httpServer, {
     cors: {
         origin: "http://localhost:5173",
@@ -17,12 +19,7 @@ const io = new Server(httpServer, {
 const ySocketIO = new YSocketIO(io);
 ySocketIO.initialize();
 
-app.get("/", (req, res) => {
-    res.status(200).json({
-        message: "Hello World",
-        success: true
-    });
-});
+
 
 app.get("/health", (req, res) => {
     res.status(200).json({
